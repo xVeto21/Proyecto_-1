@@ -1,6 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const mongoSanitize = require("express-mongo-sanitize");
+// const mongoSanitize = require("express-mongo-sanitize");
 
 const connectDB = require("./src/config/db");
 const productRoutes = require("./src/routes/productRoutes");
@@ -12,7 +12,7 @@ const app = express();
 connectDB();
 
 app.use(express.json());
-app.use(mongoSanitize());
+// app.use(mongoSanitize()); ❌ QUITADO
 
 app.use("/api/productos", productRoutes);
 
