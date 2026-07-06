@@ -1,13 +1,23 @@
 const express = require("express");
+const dotenv = require("dotenv");
+const mongoSanitize = require("express-mongo-sanitize");
+
+const connectDB = require("./src/config/db");
+const productRoutes = require("./src/routes/productRoutes");
+
+dotenv.config();
 
 const app = express();
 
-app.get("/", (req, res) => {
-    res.send("API Catálogo de Productos");
-});
+connectDB();
 
-const PORT = 3000;
+app.use(express.json());
+app.use(mongoSanitize());
+
+app.use("/api/productos", productRoutes);
+
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log(`Servidor en puerto ${PORT}`);
+  console.log("Servidor corriendo en puerto " + PORT);
 });
